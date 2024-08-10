@@ -1,0 +1,16 @@
+{
+  "hosting": [
+    {
+      "site": "admin-flavours-ocean",
+      "source": ".",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "frameworksBackend": {
+        "region": "asia-south1"
+      }
+    }
+  ]
+}
