@@ -1,16 +1,14 @@
 {
-  "hosting": [
-    {
-      "site": "admin-flavours-ocean",
-      "source": ".",
-      "ignore": [
-        "firebase.json",
-        "**/.*",
-        "**/node_modules/**"
-      ],
-      "frameworksBackend": {
-        "region": "asia-south1"
-      }
+  "hosting": {
+    "site": "admin-flavours-ocean",
+    "source": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "frameworksBackend": {
+      "region": "asia-east1"
     }
-  ]
+  }
 }

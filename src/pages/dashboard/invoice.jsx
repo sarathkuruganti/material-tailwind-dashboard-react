@@ -17,6 +17,10 @@ export function Invoice() {
         );
         const querySnapshot = await getDocs(invoicesQuery);
         const invoicesData = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+
+        // Sort invoices by dateIssued (latest first)
+        invoicesData.sort((a, b) => new Date(b.dateIssued) - new Date(a.dateIssued));
+
         setInvoices(invoicesData);
       } catch (error) {
         console.error('Error fetching invoices: ', error);

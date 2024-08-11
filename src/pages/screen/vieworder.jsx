@@ -73,6 +73,7 @@ export function ViewOrder() {
 
     const factoryInvoiceData = {
       customerAddress: orderSummary.address,
+      customerEmail: orderSummary.email,
       dateIssued: date,
       factoryDetails: "Guntur, Nallapadu",
       factoryPhoneNumber: "1324563678",

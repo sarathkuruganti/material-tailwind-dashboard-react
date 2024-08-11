@@ -1,16 +1,5 @@
 {
   "projects": {
-    "default": "admin-flavours-ocean"
-  },
-  "targets": {
-    "flavoursocean-23053": {
-      "hosting": {
-        "admin-flavours-ocean": [
-          "flavoursocean-23053"
-        ]
-      }
-    }
-  },
-  "etags": {},
-  "dataconnectEmulatorConfig": {}
+    "default": "flavoursocean-23053"
+  }
 }
