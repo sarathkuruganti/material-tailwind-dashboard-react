@@ -26,52 +26,65 @@ export function Users() {
         </div>
       ) : (
         <>
-          <h2 className="text-2xl font-bold mb-6 text-center">Registered Users</h2>
-          <div className="overflow-x-auto sm:rounded-lg">
+          <h2 className="text-2xl font-bold mb-6 text-center hidden md:block">Registered Users</h2>
+
+          {/* Desktop Table View */}
+          <div className="hidden md:block overflow-x-auto sm:rounded-lg">
             <table className="min-w-full bg-white border border-gray-200">
               <thead>
                 <tr>
-                  <th className="px-6 py-3 border-b-2 border-gray-200 bg-black text-left text-xs font-semibold text-white uppercase tracking-wider">
+                  <th className="px-5 py-3 border-b-2 border-gray-200 bg-black text-left text-xs font-semibold text-white uppercase tracking-wider">
                     Name
                   </th>
-                  <th className="px-6 py-3 border-b-2 border-gray-200 bg-black text-left text-xs font-semibold text-white uppercase tracking-wider">
+                  <th className="px-5 py-3 border-b-2 border-gray-200 bg-black text-left text-xs font-semibold text-white uppercase tracking-wider">
                     Email
                   </th>
-                  <th className="px-6 py-3 border-b-2 border-gray-200 bg-black text-left text-xs font-semibold text-white uppercase tracking-wider">
+                  <th className="px-5 py-3 border-b-2 border-gray-200 bg-black text-left text-xs font-semibold text-white uppercase tracking-wider">
                     Phone
                   </th>
-                  <th className="px-6 py-3 border-b-2 border-gray-200 bg-black text-left text-xs font-semibold text-white uppercase tracking-wider">
+                  <th className="px-5 py-3 border-b-2 border-gray-200 bg-black text-left text-xs font-semibold text-white uppercase tracking-wider">
                     Address
                   </th>
-                  <th className="px-6 py-3 border-b-2 border-gray-200 bg-black text-left text-xs font-semibold text-white uppercase tracking-wider">
+                  <th className="px-5 py-3 border-b-2 border-gray-200 bg-black text-left text-xs font-semibold text-white uppercase tracking-wider">
                     State
                   </th>
-                  <th className="px-6 py-3 border-b-2 border-gray-200 bg-black text-left text-xs font-semibold text-white uppercase tracking-wider">
+                  <th className="px-5 py-3 border-b-2 border-gray-200 bg-black text-left text-xs font-semibold text-white uppercase tracking-wider">
                     District
                   </th>
-                  <th className="px-6 py-3 border-b-2 border-gray-200 bg-black text-left text-xs font-semibold text-white uppercase tracking-wider">
+                  <th className="px-5 py-3 border-b-2 border-gray-200 bg-black text-left text-xs font-semibold text-white uppercase tracking-wider">
                     Type
-                  </th>
-                  <th className="px-6 py-3 border-b-2 border-gray-200 bg-black text-left text-xs font-semibold text-white uppercase tracking-wider">
-                    Password
                   </th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {users.map((user, index) => (
                   <tr key={index}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{user.name}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{user.email}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{user.phone}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{user.address}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{user.state}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{user.district}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{user.userType}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{user.password}</td>
+                    <td className="px-5 py-4 whitespace-nowrap text-sm text-gray-700">{user.name}</td>
+                    <td className="px-5 py-4 whitespace-nowrap text-sm text-gray-700">{user.email}</td>
+                    <td className="px-5 py-4 whitespace-nowrap text-sm text-gray-700">{user.phone}</td>
+                    <td className="px-5 py-4 whitespace-nowrap text-sm text-gray-700">{user.address}</td>
+                    <td className="px-5 py-4 whitespace-nowrap text-sm text-gray-700">{user.state}</td>
+                    <td className="px-5 py-4 whitespace-nowrap text-sm text-gray-700">{user.district}</td>
+                    <td className="px-5 py-4 whitespace-nowrap text-sm text-gray-700">{user.userType}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
+          </div>
+
+          {/* Mobile Card View */}
+          <div className="block md:hidden">
+            {users.map((user, index) => (
+              <div key={index} className="border border-gray-200 rounded-lg p-4 mb-4 bg-white">
+                <p className="text-sm text-gray-900"><strong>Name:</strong> {user.name}</p>
+                <p className="text-sm text-gray-900"><strong>Email:</strong> {user.email}</p>
+                <p className="text-sm text-gray-900"><strong>Phone:</strong> {user.phone}</p>
+                <p className="text-sm text-gray-900"><strong>Address:</strong> {user.address}</p>
+                <p className="text-sm text-gray-900"><strong>State:</strong> {user.state}</p>
+                <p className="text-sm text-gray-900"><strong>District:</strong> {user.district}</p>
+                <p className="text-sm text-gray-900"><strong>Type:</strong> {user.userType}</p>
+              </div>
+            ))}
           </div>
         </>
       )}

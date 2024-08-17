@@ -28,7 +28,7 @@ export function Sidenav({ brandImg, brandName, routes }) {
           color="white"
           size="sm"
           ripple={false}
-          className="absolute right-0 top-0 grid rounded-br-none rounded-tl-none xl:hidden"
+          className="absolute right-0 top-0 grid rounded-br-none rounded-tl-none xl:hidden mr-5"
           onClick={() => setOpenSidenav(dispatch, false)}
         >
           <XMarkIcon strokeWidth={2.5} className="h-5 w-5 text-white" />
@@ -56,6 +56,7 @@ export function Sidenav({ brandImg, brandName, routes }) {
                       variant={isActive ? "gradient" : "text"}
                       color={isActive ? "green" : "white"}
                       className="flex items-center gap-4 px-4 capitalize"
+                      onClick={() => setOpenSidenav(dispatch, false)}
                       fullWidth
                     >
                       {icon}

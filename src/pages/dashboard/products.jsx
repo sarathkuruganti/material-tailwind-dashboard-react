@@ -74,7 +74,7 @@ export function Products() {
     <div className="relative">
       {loading ? (
         <div className="container mx-auto">
-          <h2 className="text-2xl font-bold mb-6 text-center">Products</h2>
+          <h2 className="text-2xl font-bold mb-6 text-center hidden md:block">Products</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {Array(6).fill().map((_, index) => (
               <div key={index} className="bg-white animate-pulse shadow-lg rounded-lg overflow-hidden h-64"></div>
@@ -83,7 +83,7 @@ export function Products() {
         </div>
       ) : (
         <div className="container mx-auto">
-          <h2 className="text-2xl font-bold mb-6 text-center">Products</h2>
+         <h2 className="text-2xl font-bold mb-6 text-center hidden md:block">Products</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {products.map(product => (
               <div

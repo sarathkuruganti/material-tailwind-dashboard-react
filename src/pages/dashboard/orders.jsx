@@ -101,10 +101,32 @@ export function Orders() {
     );
   }
 
+  // Mapping column names to user-friendly headers
+  const getColumnName = (column) => {
+    switch (column) {
+      case 'productName':
+        return 'Product Name';
+      case 'totalAmount':
+        return 'Total Amount';
+      case 'email':
+        return 'Email';
+      case 'date':
+        return 'Date';
+      case 'name':
+        return 'Name';
+      case 'phone':
+        return 'Phone';
+      case 'Type':
+        return 'Type';
+      default:
+        return column;
+    }
+  };
+
   return (
     <div className="relative">
       <div className="container mx-auto">
-        <h2 className="text-2xl font-bold mb-6 text-center">Orders</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center hidden md:block">Orders</h2>
         <div className="hidden sm:block overflow-x-auto shadow-md sm:rounded-lg">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-black">
@@ -114,7 +136,7 @@ export function Orders() {
                     key={column}
                     className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
                   >
-                    {column}
+                    {getColumnName(column)}
                   </th>
                 ))}
               </tr>
@@ -140,16 +162,26 @@ export function Orders() {
           {orders.map(order => (
             <div 
               key={`${order.email}-${order.date}`} 
-              className="bg-white shadow-lg rounded-lg overflow-hidden mb-4 cursor-pointer"
-              onClick={() => handleRowClick(order.email)}
+              className="bg-white shadow-lg rounded-lg overflow-hidden mb-4 cursor-pointer border border-gray-200"
+              onClick={() => handleRowClick(order.email, order.date)}
             >
               <div className="p-4">
+                <div className="text-lg font-semibold mb-2">Order on {new Date(order.date).toLocaleDateString()}</div>
+                <div className="text-sm text-gray-600 mb-4">Email: {order.email}</div>
+                
                 {columns.map(column => (
-                  <div key={column} className="mb-2 flex">
-                    <strong className="text-black mr-2 capitalize">{column}:</strong>
-                    <span className="text-gray-900">{order[column] || 'N/A'}</span>
+                  <div key={column} className="flex justify-between mb-2 border-b border-gray-200 pb-2">
+                    <span className="font-medium text-gray-900 capitalize">{getColumnName(column)}:</span>
+                    <span className="text-gray-800 text-left flex-1">{order[column] || 'N/A'}</span>
                   </div>
                 ))}
+                
+                <button 
+                  className="w-full bg-blue-500 text-white py-2 rounded-md mt-4 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  onClick={() => handleRowClick(order.email, order.date)}
+                >
+                  View Details
+                </button>
               </div>
             </div>
           ))}

@@ -30,12 +30,13 @@ export function SignIn() {
             </Typography>
             <Input
               size="lg"
-              placeholder="admin@gmail.com"
+              placeholder="user@gmail.com"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-              value="admin@gmail.com"
+              value="flavoursoceans@gmail.com"
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
+              readOnly
             />
             <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
               Password
@@ -44,11 +45,12 @@ export function SignIn() {
               type="password"
               size="lg"
               placeholder="********"
-              value="admin@123"
+              value="flavoursocans123"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
+              readOnly
             />
           </div>
           <Button className="mt-6" fullWidth type="submit">

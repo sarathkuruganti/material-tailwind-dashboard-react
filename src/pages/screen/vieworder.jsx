@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { collection, getDocs, query, where, addDoc, deleteDoc, doc } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from './../../../firebase';
 
 export function ViewOrder() {
@@ -68,56 +68,6 @@ export function ViewOrder() {
     }
   }, [email, date]);
 
-  const handleSaveOrder = async () => {
-    if (!orderSummary) return;
-
-    const factoryInvoiceData = {
-      customerAddress: orderSummary.address,
-      customerEmail: orderSummary.email,
-      dateIssued: date,
-      factoryDetails: "Guntur, Nallapadu",
-      factoryPhoneNumber: "1324563678",
-      invoiceNumber: Math.floor(100000 + Math.random() * 900000),
-      invoiceTo: orderSummary.name,
-      items: orderSummary.products.map(product => ({
-        item: product.productName,
-        price: product.price,
-        quantity: product.quantity,
-        cost: product.totalAmount,
-      })),
-      salesPerson: "Sarath Kuruganti",
-      generatedby: "factory",
-      total: orderSummary.totalAmount,
-    };
-
-    try {
-      // Save the order as an invoice
-      await addDoc(collection(db, 'invoice'), factoryInvoiceData);
-
-      // Fetch all orders to delete
-      const ordersQuery = query(
-        collection(db, 'DOrders'),
-        where('email', '==', email),
-        where('date', '==', date)
-      );
-      const ordersSnapshot = await getDocs(ordersQuery);
-
-      // Delete each order document
-      const deletePromises = [];
-      ordersSnapshot.forEach(docSnapshot => {
-        const orderDocRef = doc(db, 'DOrders', docSnapshot.id);
-        deletePromises.push(deleteDoc(orderDocRef));
-      });
-
-      await Promise.all(deletePromises);
-
-      alert('Order saved and deleted successfully!');
-    } catch (error) {
-      console.error('Error saving order or deleting details: ', error);
-      alert('Failed to save order or delete order details. Please try again.');
-    }
-  };
-
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -160,7 +110,8 @@ export function ViewOrder() {
           </p>
         </div>
 
-        <div className="overflow-x-auto">
+        {/* Desktop Table View */}
+        <div className="hidden md:block overflow-x-auto">
           <table className="min-w-full bg-white border border-gray-300">
             <thead className="bg-black">
               <tr>
@@ -183,13 +134,24 @@ export function ViewOrder() {
           </table>
         </div>
 
-        <div className="mt-6 text-center">
-          <button
-            onClick={handleSaveOrder}
-            className="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 focus:outline-none"
-          >
-            Save Order
-          </button>
+        {/* Mobile Card View */}
+        <div className="block md:hidden">
+          {orderSummary.products.map((product, index) => (
+            <div key={index} className="border border-gray-300 rounded-lg p-4 mb-4">
+              <p className="text-sm text-gray-700">
+                <strong>Product:</strong> {product.productName}
+              </p>
+              <p className="text-sm text-gray-700">
+                <strong>Price:</strong> ₹{product.price}
+              </p>
+              <p className="text-sm text-gray-700">
+                <strong>Quantity:</strong> {product.quantity}
+              </p>
+              <p className="text-sm text-gray-700">
+                <strong>Total Amount:</strong> ₹{product.totalAmount}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
