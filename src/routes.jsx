@@ -1,7 +1,6 @@
 import {
   HomeIcon,
   UserCircleIcon,
-  TableCellsIcon,
   InformationCircleIcon,
   ServerStackIcon,
   RectangleStackIcon,
@@ -9,7 +8,7 @@ import {
   DocumentTextIcon,
 } from "@heroicons/react/24/solid";
 import { Home, Orders, Products, Invoice, Register, Users } from "@/pages/dashboard";
-import { SignIn, SignUp } from "@/pages/auth";
+import { SignIn, ForgotPassword} from "@/pages/auth";
 import { AddNewProduct, InvoiceDetails, ViewOrder } from "@/pages/screen";
 
 const icon = {
@@ -69,10 +68,10 @@ export const routes = [
         element: <SignIn />,
       },
       {
-        icon: <RectangleStackIcon {...icon} />,
-        name: "sign up",
-        path: "/sign-up",
-        element: <SignUp />,
+        icon: <ServerStackIcon {...icon} />,
+        name: "forgot-password",
+        path: "/forgot-password",
+        element: <ForgotPassword />,
       },
     ],
   },

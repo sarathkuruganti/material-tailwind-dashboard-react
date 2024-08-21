@@ -33,39 +33,27 @@ export function Users() {
             <table className="min-w-full bg-white border border-gray-200">
               <thead>
                 <tr>
-                  <th className="px-5 py-3 border-b-2 border-gray-200 bg-black text-left text-xs font-semibold text-white uppercase tracking-wider">
-                    Name
-                  </th>
-                  <th className="px-5 py-3 border-b-2 border-gray-200 bg-black text-left text-xs font-semibold text-white uppercase tracking-wider">
-                    Email
-                  </th>
-                  <th className="px-5 py-3 border-b-2 border-gray-200 bg-black text-left text-xs font-semibold text-white uppercase tracking-wider">
-                    Phone
-                  </th>
-                  <th className="px-5 py-3 border-b-2 border-gray-200 bg-black text-left text-xs font-semibold text-white uppercase tracking-wider">
-                    Address
-                  </th>
-                  <th className="px-5 py-3 border-b-2 border-gray-200 bg-black text-left text-xs font-semibold text-white uppercase tracking-wider">
-                    State
-                  </th>
-                  <th className="px-5 py-3 border-b-2 border-gray-200 bg-black text-left text-xs font-semibold text-white uppercase tracking-wider">
-                    District
-                  </th>
-                  <th className="px-5 py-3 border-b-2 border-gray-200 bg-black text-left text-xs font-semibold text-white uppercase tracking-wider">
-                    Type
-                  </th>
+                  <th className="px-5 py-3 border-b-2 border-gray-200 bg-black text-left text-xs font-semibold text-white uppercase tracking-wider">Name</th>
+                  <th className="px-5 py-3 border-b-2 border-gray-200 bg-black text-left text-xs font-semibold text-white uppercase tracking-wider">Email</th>
+                  <th className="px-5 py-3 border-b-2 border-gray-200 bg-black text-left text-xs font-semibold text-white uppercase tracking-wider">Phone</th>
+                  <th className="px-5 py-3 border-b-2 border-gray-200 bg-black text-left text-xs font-semibold text-white uppercase tracking-wider">Address</th>
+                  <th className="px-5 py-3 border-b-2 border-gray-200 bg-black text-left text-xs font-semibold text-white uppercase tracking-wider">State</th>
+                  <th className="px-5 py-3 border-b-2 border-gray-200 bg-black text-left text-xs font-semibold text-white uppercase tracking-wider">District</th>
+                  <th className="px-5 py-3 border-b-2 border-gray-200 bg-black text-left text-xs font-semibold text-white uppercase tracking-wider">Mandal</th>
+                  <th className="px-5 py-3 border-b-2 border-gray-200 bg-black text-left text-xs font-semibold text-white uppercase tracking-wider">Type</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {users.map((user, index) => (
                   <tr key={index}>
-                    <td className="px-5 py-4 whitespace-nowrap text-sm text-gray-700">{user.name}</td>
-                    <td className="px-5 py-4 whitespace-nowrap text-sm text-gray-700">{user.email}</td>
-                    <td className="px-5 py-4 whitespace-nowrap text-sm text-gray-700">{user.phone}</td>
-                    <td className="px-5 py-4 whitespace-nowrap text-sm text-gray-700">{user.address}</td>
-                    <td className="px-5 py-4 whitespace-nowrap text-sm text-gray-700">{user.state}</td>
-                    <td className="px-5 py-4 whitespace-nowrap text-sm text-gray-700">{user.district}</td>
-                    <td className="px-5 py-4 whitespace-nowrap text-sm text-gray-700">{user.userType}</td>
+                    <td className="px-5 py-4 whitespace-nowrap text-sm text-gray-700">{user.name || '__'}</td>
+                    <td className="px-5 py-4 whitespace-nowrap text-sm text-gray-700">{user.email || '__'}</td>
+                    <td className="px-5 py-4 whitespace-nowrap text-sm text-gray-700">{user.phone || '__'}</td>
+                    <td className="px-5 py-4 whitespace-nowrap text-sm text-gray-700">{user.address || '__'}</td>
+                    <td className="px-5 py-4 whitespace-nowrap text-sm text-gray-700">{user.state || '__'}</td>
+                    <td className="px-5 py-4 whitespace-nowrap text-sm text-gray-700">{user.district || '__'}</td>
+                    <td className="px-5 py-4 whitespace-nowrap text-sm text-gray-700">{user.mandal || '__'}</td>
+                    <td className="px-5 py-4 whitespace-nowrap text-sm text-gray-700">{user.userType || '__'}</td>
                   </tr>
                 ))}
               </tbody>
@@ -76,13 +64,14 @@ export function Users() {
           <div className="block md:hidden">
             {users.map((user, index) => (
               <div key={index} className="border border-gray-200 rounded-lg p-4 mb-4 bg-white">
-                <p className="text-sm text-gray-900"><strong>Name:</strong> {user.name}</p>
-                <p className="text-sm text-gray-900"><strong>Email:</strong> {user.email}</p>
-                <p className="text-sm text-gray-900"><strong>Phone:</strong> {user.phone}</p>
-                <p className="text-sm text-gray-900"><strong>Address:</strong> {user.address}</p>
-                <p className="text-sm text-gray-900"><strong>State:</strong> {user.state}</p>
-                <p className="text-sm text-gray-900"><strong>District:</strong> {user.district}</p>
-                <p className="text-sm text-gray-900"><strong>Type:</strong> {user.userType}</p>
+                <p className="text-sm text-gray-900"><strong>Name:</strong> {user.name || '__'}</p>
+                <p className="text-sm text-gray-900"><strong>Email:</strong> {user.email || '__'}</p>
+                <p className="text-sm text-gray-900"><strong>Phone:</strong> {user.phone || '__'}</p>
+                <p className="text-sm text-gray-900"><strong>Address:</strong> {user.address || '__'}</p>
+                <p className="text-sm text-gray-900"><strong>State:</strong> {user.state || '__'}</p>
+                <p className="text-sm text-gray-900"><strong>District:</strong> {user.district || '__'}</p>
+                <p className="text-sm text-gray-900"><strong>Mandal:</strong> {user.mandal || '__'}</p>
+                <p className="text-sm text-gray-900"><strong>User Type:</strong> {user.userType || '__'}</p>
               </div>
             ))}
           </div>

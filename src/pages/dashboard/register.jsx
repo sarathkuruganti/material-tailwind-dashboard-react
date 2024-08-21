@@ -78,23 +78,27 @@ export function Register() {
       case 'email':
         return !value ? 'Email is required' : '';
       case 'phone':
-        return !value ? 'Phone number is required' : '';
+        if (!value) return 'Phone number is required';
+        if (value.length !== 10) return 'Phone number must be exactly 10 digits';
+        if (!/^\d{10}$/.test(value)) return 'Phone number must contain only digits';
+        return '';
       case 'address':
         return !value ? 'Address is required' : '';
       case 'state':
-        return formData.userType !== 'Factory' && !value ? 'State is required' : '';
+        return (formData.userType === 'State' || formData.userType !== 'Factory') && !value ? 'State is required' : '';
       case 'district':
-        return formData.userType !== 'Factory' && !value ? 'District is required' : '';
+        return formData.userType !== 'Factory' && formData.userType !== 'State' && !value ? 'District is required' : '';
       case 'mandal':
         return formData.userType === 'Mandal' && !value ? 'Mandal is required' : '';
       case 'userType':
         return !value ? 'User Type is required' : '';
       case 'factory':
-        return formData.userType === 'Factory' && !value ? 'Factory selection is required' : '';
+        return formData.userType !== 'Mandal' && formData.userType !== 'State' && !value ? 'Factory selection is required' : '';
       default:
         return '';
     }
   };
+  
 
   const validateForm = () => {
     const formErrors = {};
@@ -151,11 +155,11 @@ export function Register() {
         email: formData.email,
         phone: formData.phone,
         address: formData.address,
-        state: formData.userType !== 'Factory' ? formData.state : '',
-        district: formData.userType !== 'Factory' ? formData.district : '',
+        state: formData.state,
+        district: formData.userType !== 'Factory' && formData.userType !== 'State' ? formData.district : '',
         mandal: formData.userType === 'Mandal' ? formData.mandal : '',
         userType: formData.userType,
-        factory: formData.userType === 'Factory' ? formData.factory : '',
+        factory: formData.userType !== 'Mandal' && formData.userType !== 'State' ? formData.factory : '',
         uid: user.uid,
       });
 
@@ -182,7 +186,7 @@ export function Register() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center min-h-screen bg-gray-100">
       <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md w-full max-w-lg">
         <h2 className="text-2xl font-bold mb-6">Register User</h2>
 
@@ -194,7 +198,7 @@ export function Register() {
             value={formData.name}
             onChange={handleChange}
             onBlur={handleBlur}
-            className={`w-full p-2 border ${errors.name ? 'border-red-500' : 'border-gray-300'} rounded`}
+            className={`w-full p-2 border ${errors.name ? 'border-red-500' : 'border-gray-300'} rounded placeholder-gray-600`}
           />
           {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
         </div>
@@ -207,21 +211,25 @@ export function Register() {
             value={formData.email}
             onChange={handleChange}
             onBlur={handleBlur}
-            className={`w-full p-2 border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded`}
+            className={`w-full p-2 border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded placeholder-gray-600`}
           />
           {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
         </div>
 
         <div className="mb-4">
-          <input
-            type="text"
-            name="phone"
-            placeholder="Phone"
-            value={formData.phone}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            className={`w-full p-2 border ${errors.phone ? 'border-red-500' : 'border-gray-300'} rounded`}
-          />
+        <input
+  type="text"
+  name="phone"
+  placeholder="Phone"
+  value={formData.phone}
+  onChange={handleChange}
+  onBlur={handleBlur}
+  maxLength="10"
+  pattern="\d{10}"
+  title="Phone number must be exactly 10 digits"
+  className={`w-full p-2 border ${errors.phone ? 'border-red-500' : 'border-gray-300'} rounded placeholder-gray-600`}
+/>
+
           {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
         </div>
 
@@ -232,7 +240,7 @@ export function Register() {
             value={formData.address}
             onChange={handleChange}
             onBlur={handleBlur}
-            className={`w-full p-2 border ${errors.address ? 'border-red-500' : 'border-gray-300'} rounded`}
+            className={`w-full p-2 border ${errors.address ? 'border-red-500' : 'border-gray-300'} rounded placeholder-gray-600`}
           ></textarea>
           {errors.address && <p className="text-red-500 text-sm">{errors.address}</p>}
         </div>
@@ -246,6 +254,7 @@ export function Register() {
             className={`w-full p-2 border ${errors.userType ? 'border-red-500' : 'border-gray-300'} rounded`}
           >
             <option value="">Select User Type</option>
+            <option value="State">State</option>
             <option value="Factory">Factory</option>
             <option value="District">District</option>
             <option value="Mandal">Mandal</option>
@@ -254,65 +263,66 @@ export function Register() {
         </div>
 
         {formData.userType !== 'Factory' && (
-          <>
-            <div className="mb-4">
-              <select
-                name="state"
-                value={formData.state}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                className={`w-full p-2 border ${errors.state ? 'border-red-500' : 'border-gray-300'} rounded`}
-              >
-                <option value="">Select State</option>
-                <option value="Andhra Pradesh">Andhra Pradesh</option>
-                <option value="Telangana">Telangana</option>
-                <option value="Odisha">Odisha</option>
-              </select>
-              {errors.state && <p className="text-red-500 text-sm">{errors.state}</p>}
-            </div>
+          <div className="mb-4">
+            <select
+              name="state"
+              value={formData.state}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              className={`w-full p-2 border ${errors.state ? 'border-red-500' : 'border-gray-300'} rounded`}
+            >
+              <option value="">Select State</option>
+              <option value="Andhra Pradesh">Andhra Pradesh</option>
+              <option value="Telangana">Telangana</option>
+              <option value="Odisha">Odisha</option>
+            </select>
+            {errors.state && <p className="text-red-500 text-sm">{errors.state}</p>}
+          </div>
+        )}
 
+        {formData.userType !== 'Factory' && formData.userType !== 'State' && (
+          <>
             <div className="mb-4">
               <select
                 name="district"
                 value={formData.district}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                disabled={!districts.length}
                 className={`w-full p-2 border ${errors.district ? 'border-red-500' : 'border-gray-300'} rounded`}
               >
                 <option value="">Select District</option>
-                {districts.map((district, index) => (
-                  <option key={index} value={district}>
+                {districts.map((district) => (
+                  <option key={district} value={district}>
                     {district}
                   </option>
                 ))}
               </select>
               {errors.district && <p className="text-red-500 text-sm">{errors.district}</p>}
             </div>
+
+            {formData.userType === 'Mandal' && (
+              <div className="mb-4">
+                <select
+                  name="mandal"
+                  value={formData.mandal}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  className={`w-full p-2 border ${errors.mandal ? 'border-red-500' : 'border-gray-300'} rounded`}
+                >
+                  <option value="">Select Mandal</option>
+                  {mandals.map((mandal) => (
+                    <option key={mandal} value={mandal}>
+                      {mandal}
+                    </option>
+                  ))}
+                </select>
+                {errors.mandal && <p className="text-red-500 text-sm">{errors.mandal}</p>}
+              </div>
+            )}
           </>
         )}
 
-        {formData.userType === 'Mandal' && (
-          <div className="mb-4">
-            <select
-              name="mandal"
-              value={formData.mandal}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              className={`w-full p-2 border ${errors.mandal ? 'border-red-500' : 'border-gray-300'} rounded`}
-            >
-              <option value="">Select Mandal</option>
-              {mandals.map((mandal, index) => (
-                <option key={index} value={mandal}>
-                  {mandal}
-                </option>
-              ))}
-            </select>
-            {errors.mandal && <p className="text-red-500 text-sm">{errors.mandal}</p>}
-          </div>
-        )}
-
-        {formData.userType === 'Factory' && (
+        {(formData.userType !== 'Mandal' && formData.userType !== 'State') && (
           <div className="mb-4">
             <select
               name="factory"
@@ -322,8 +332,8 @@ export function Register() {
               className={`w-full p-2 border ${errors.factory ? 'border-red-500' : 'border-gray-300'} rounded`}
             >
               <option value="">Select Factory</option>
-              {factories.map((factory, index) => (
-                <option key={index} value={factory}>
+              {factories.map((factory) => (
+                <option key={factory} value={factory}>
                   {factory}
                 </option>
               ))}
@@ -334,7 +344,7 @@ export function Register() {
 
         <button
           type="submit"
-          className="w-full bg-black text-white p-2 rounded hover:bg-gray-800"
+          className={`w-full p-2 text-white rounded ${loading ? 'bg-gray-700' : 'bg-gray-900 hover:bg-black'}`}
           disabled={loading}
         >
           {loading ? 'Registering...' : 'Register'}
@@ -343,5 +353,3 @@ export function Register() {
     </div>
   );
 }
-
-export default Register;
