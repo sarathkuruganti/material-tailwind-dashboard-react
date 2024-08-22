@@ -12,8 +12,8 @@ import { auth } from "./../../../firebase";
 
 export function SignIn() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("flavoursoceans@gmail.com");
-  const [password, setPassword] = useState("flavoursocans123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
   const handleSignIn = async (event) => {

@@ -23,7 +23,7 @@ export function Register() {
   const [loading, setLoading] = useState(false);
   const [districts, setDistricts] = useState([]);
   const [mandals, setMandals] = useState([]);
-  const [factories, setFactories] = useState(['Nallapadu,Guntur']); // Example factory list
+  const [factories, setFactories] = useState(['115-4-432/B, Srinivasa Colony, Nallapadu Rural, Andhra Pradesh']); // Example factory list
 
   useEffect(() => {
     if (formData.state && formData.userType !== 'Factory') {
@@ -121,10 +121,78 @@ export function Register() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           to: email,
-          subject: 'Your Registration Password',
-          html: `<h1>Hello ${name}</h1>
-    <p>Your registration password is: <strong>${password}</strong></p>
-    <p>From Flavour's Ocean Ice Cream</p>`,
+          subject: 'FlavoursOcean - Your New Password',
+          html: `<!DOCTYPE html>
+          <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>Password Information</title>
+              <style>
+                  body {
+                      background-color: #f4f4f7;
+                      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                      margin: 0;
+                      padding: 20px;
+                  }
+                  .card {
+                      max-width: 600px;
+                      margin: auto;
+                      padding: 25px;
+                      border-radius: 10px;
+                      background-color: #ffffff;
+                      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                      color: #333333;
+                  }
+                  .card h1 {
+                      font-size: 22px;
+                      color: #333333;
+                      margin-bottom: 20px;
+                  }
+                  .card p {
+                      margin: 10px 0;
+                      line-height: 1.6;
+                  }
+                  .card a {
+                      color: #1a73e8;
+                      text-decoration: none;
+                  }
+                  .card a:hover {
+                      text-decoration: underline;
+                  }
+                  .card strong {
+                      color: #d9534f;
+                  }
+                  .footer {
+                      text-align: center;
+                      margin-top: 20px;
+                      font-size: 12px;
+                      color: #999999;
+                  }
+              </style>
+          </head>
+          <body>
+              <div class="card">
+                  <h1>Hello ${name},</h1>
+          
+                  <p>Your temporary FlavoursOcean system password: <strong>${password}</strong></p>
+          
+                  <p>Login at <a href="https://flavoursocean.com">flavoursocean.com</a> and change this password immediately.</p>
+          
+                  <p>Please delete this email after use.</p>
+          
+                  <p>Need help? Contact IT: <a href="mailto:naveenkolagani@flavoursocean.com">naveenkolagani@flavoursocean.com</a></p>
+          
+                  <p>Best regards,<br>
+                  FlavoursOcean</p>
+              </div>
+          
+              <div class="footer">
+                  &copy; 2024 FlavoursOcean. All rights reserved.
+              </div>
+          </body>
+          </html>
+          `,
         }),
       });
 
